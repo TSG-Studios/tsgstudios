@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>TSG Studios</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#000;
+  color:#fff;
+  overflow-x:hidden;
+  animation:pageFade 0.8s ease;
+}
+
+/* ================= PAGE FADE ================= */
+@keyframes pageFade{
+
+  from{
+    opacity:0;
+  }
+
+  to{
+    opacity:1;
+  }
+
+}
+
+
+
+/* ================= BACKGROUND GLOW ================= */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(0,191,255,0.08),
+  transparent 30%),
+
+  radial-gradient(circle at bottom left,
+  rgba(0,191,255,0.05),
+  transparent 30%);
+
+  z-index:-4;
+  pointer-events:none;
+}
+
+/* ================= PARTICLES ================= */
+#particles{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+}
+
+/* ================= PROGRESS BAR ================= */
+#progress-bar{
+  position:fixed;
+  top:0;
+  left:0;
+
+  width:0%;
+  height:3px;
+
+  background:#00bfff;
+
+  z-index:10000;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+
+  padding:15px 25px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  background:rgba(0,0,0,0.4);
+
+  backdrop-filter:blur(12px);
+
+  border-bottom:1px solid rgba(255,255,255,0.08);
+
+  z-index:9999;
+
+  transition:0.3s;
+}
+
+.nav-links{
+  display:flex;
+  gap:20px;
+  list-style:none;
+}
+
+.nav-links a{
+  color:white;
+  text-decoration:none;
+  transition:0.3s;
+}
+
+.nav-links a:hover,
+.nav-links a.active{
+  color:#00bfff;
+}
+
+.menu-toggle{
+  display:none;
+  font-size:22px;
+  cursor:pointer;
+  color:white;
+}
+
+/* ================= HERO ================= */
+.hero{
+  height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+
+  position:relative;
+
+  padding:0 10%;
+
+  overflow:hidden;
+
+  border-bottom:1px solid rgba(255,255,255,0.03);
+}
+
+.hero video{
+  position:absolute;
+
+  top:50%;
+  left:50%;
+
+  min-width:100%;
+  min-height:100%;
+
+  transform:translate(-50%,-50%);
+
+  object-fit:cover;
+
+  filter:brightness(0.5) contrast(1.1);
+
+  z-index:-2;
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  z-index:-1;
+
+  background:
+
+  linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.15) 0%,
+    rgba(0,0,0,0.27) 35%,
+    rgba(0,0,0,0.57) 75%,
+    #000 100%
+  ),
+
+  radial-gradient(
+    circle at bottom left,
+    rgba(0,0,0,0.95) 0%,
+    transparent 40%
+  ),
+
+  radial-gradient(
+    circle at bottom right,
+    rgba(0,0,0,0.85) 0%,
+    transparent 40%
+  );
+}
+
+.hero-content{
+  max-width:800px;
+  z-index:1;
+  animation:fadeUp 1s ease-out;
+}
+
+.hero h1{
+  font-size:clamp(2.8rem,8vw,5rem);
+  line-height:1.1;
+
+  margin-bottom:15px;
+
+  color:#fff;
+
+  text-shadow:
+  0 5px 15px rgba(0,0,0,0.5),
+  0 0 20px rgba(0,191,255,0.2);
+}
+
+.hero p{
+  font-size:1.2rem;
+  color:#ddd;
+
+  max-width:600px;
+
+  line-height:1.7;
+}
+
+/* ================= ANIMATION ================= */
+@keyframes fadeUp{
+
+  from{
+    opacity:0;
+    transform:translateY(30px);
+  }
+
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+}
+
+/* ================= SECTIONS ================= */
+section{
+  display:flex;
+  justify-content:center;
+  padding:90px 20px;
+}
+
+.wrapper{
+  width:100%;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+h2{
+  font-size:2rem;
+  margin-bottom:25px;
+}
+
+.section-title{
+  font-size:2rem;
+  margin-bottom:25px;
+  margin-left:10px;
+}
+
+/* ================= TRENDING ================= */
+.trending-section{
+  padding:80px 0;
+  background:#000;
+  overflow:hidden;
+}
+
+.trending-container{
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+
+/* ================= TABLET ================= */
+@media (max-width:768px){
+
+  section{
+    padding:70px 15px;
+  }
+
+  .wrapper{
+    max-width:100%;
+  }
+
+  h2,
+  .section-title{
+    font-size:1.7rem;
+    margin-bottom:20px;
+    margin-left:5px;
+  }
+
+  .trending-section{
+    padding:60px 0;
+  }
+
+  .trending-container{
+    align-items:flex-start;
+  }
+
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:480px){
+
+  section{
+    padding:55px 12px;
+  }
+
+  h2,
+  .section-title{
+    font-size:1.4rem;
+    margin-bottom:18px;
+    margin-left:2px;
+  }
+
+  .trending-section{
+    padding:45px 0;
+  }
+
+}
+
+/* ================= SCROLL ROW ================= */
+.scroll-row{
+  display:flex;
+  gap:20px;
+
+  overflow-x:auto;
+
+  scroll-behavior:smooth;
+
+  padding:20px 10px;
+
+  scrollbar-width:none;
+}
+
+.scroll-row::-webkit-scrollbar{
+  display:none;
+}
+
+/* ================= CARD ================= */
+.card{
+  position:relative;
+
+  min-width:260px;
+  height:390px;
+
+  border-radius:20px;
+
+  overflow:hidden;
+
+  cursor:pointer;
+
+  background:#111;
+
+  transition:0.4s ease;
+
+  flex-shrink:0;
+}
+
+.card:hover{
+  transform:scale(1.06);
+
+  z-index:10;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.7),
+  0 0 25px rgba(0,191,255,0.12);
+}
+
+/* CARD GLOW */
+.card::before{
+  content:"";
+
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    180deg,
+    transparent,
+    rgba(0,191,255,0.15)
+  );
+
+  opacity:0;
+
+  transition:0.4s;
+
+  z-index:1;
+}
+
+.card:hover::before{
+  opacity:1;
+}
+
+/* IMAGE */
+.card-image{
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  display:block;
+
+  transition:opacity 0.4s ease;
+}
+
+/* VIDEO */
+.preview{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+
+  opacity:0;
+
+  transition:opacity 0.4s ease;
+}
+
+/* SHOW VIDEO */
+.card:hover .preview{
+  opacity:1;
+}
+
+.card:hover .card-image{
+  opacity:0;
+}
+
+/* OVERLAY */
+.overlay{
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    to top,
+    rgba(0,0,0,0.95) 0%,
+    rgba(0,0,0,0.3) 40%,
+    transparent 70%
+  );
+
+  z-index:1;
+}
+
+/* CARD INFO */
+.card-info{
+  position:absolute;
+  bottom:20px;
+  left:20px;
+
+  z-index:2;
+}
+
+.card-info h4{
+  font-size:1.2rem;
+  margin-bottom:5px;
+}
+
+.card-info p{
+  font-size:0.9rem;
+  opacity:0.8;
+}
+
+/* ================= SCROLL BUTTONS ================= */
+.scroll-btn{
+  position:absolute;
+  top:50%;
+
+  transform:translateY(-50%);
+
+  background:rgba(0,0,0,0.6);
+
+  border:none;
+
+  color:white;
+
+  font-size:32px;
+
+  width:45px;
+  height:90px;
+
+  cursor:pointer;
+
+  z-index:50;
+
+  transition:0.3s;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:12px;
+
+  backdrop-filter:blur(10px);
+}
+
+.scroll-btn:hover{
+  background:rgba(0,191,255,0.5);
+}
+
+.scroll-btn.left{
+  left:-10px;
+}
+
+.scroll-btn.right{
+  right:-10px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+  .scroll-btn{
+
+    width:38px;
+    height:70px;
+
+    font-size:24px;
+
+    border-radius:10px;
+
+    background:rgba(0,0,0,0.75);
+
+  }
+
+  .scroll-btn.left{
+    left:5px;
+  }
+
+  .scroll-btn.right{
+    right:5px;
+  }
+
+}
+
+/* ================= SMALL PHONES ================= */
+@media (max-width:480px){
+
+  .scroll-btn{
+
+    width:32px;
+    height:60px;
+
+    font-size:20px;
+
+  }
+
+}
+
+/* ================= WHAT'S NEW ================= */
+.updates{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:20px;
+}
+
+.update-card{
+  width:280px;
+
+  background:rgba(255,255,255,0.05);
+
+  padding:20px;
+
+  border-radius:15px;
+
+  border:1px solid rgba(255,255,255,0.08);
+
+  transition:0.3s;
+}
+
+.update-card:hover{
+  transform:translateY(-8px);
+
+  border-color:rgba(0,191,255,0.4);
+
+  box-shadow:
+  0 10px 25px rgba(0,0,0,0.4),
+  0 0 20px rgba(0,191,255,0.08);
+}
+
+.update-card p{
+  color:#ccc;
+  font-size:14px;
+  margin-top:8px;
+}
+
+.update-card span{
+  color:#00bfff;
+  font-size:12px;
+  display:block;
+  margin-top:10px;
+}
+
+/* ================= YOUTUBE ================= */
+.yt-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:20px;
+}
+
+.yt-grid iframe{
+  width:100%;
+  height:180px;
+
+  border:none;
+  border-radius:14px;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  padding:35px 20px;
+
+  text-align:center;
+
+  border-top:1px solid rgba(255,255,255,0.08);
+
+  background:rgba(0,0,0,0.5);
+}
+
+.footer-icons{
+  margin-top:15px;
+
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+
+.footer-icons a{
+  width:42px;
+  height:42px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,0.06);
+
+  color:white;
+
+  text-decoration:none;
+
+  transition:0.3s;
+}
+
+.footer-icons a:hover{
+  background:#00bfff;
+  transform:translateY(-4px);
+}
+
+/* ================= REVEAL ================= */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.8s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ================= INTRO SCREEN ================= */
+.intro-screen{
+  position:fixed;
+  inset:0;
+
+  background:#000;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+
+  z-index:999999;
+
+  animation:introFade 4s forwards;
+}
+
+/* LOGO */
+.intro-logo{
+  width:220px;
+  opacity:0;
+
+  animation:
+  logoZoom 2.2s ease forwards,
+  logoGlow 2s ease-in-out infinite;
+}
+
+/* LOGO ZOOM */
+@keyframes logoZoom{
+
+  0%{
+    transform:scale(0.6);
+    opacity:0;
+    filter:blur(12px);
+  }
+
+  40%{
+    opacity:1;
+  }
+
+  70%{
+    transform:scale(1);
+    filter:blur(0);
+  }
+
+  100%{
+    transform:scale(1.05);
+    opacity:1;
+  }
+
+}
+
+/* GLOW EFFECT */
+@keyframes logoGlow{
+
+  0%{
+    filter:drop-shadow(0 0 10px rgba(0,191,255,0.2));
+  }
+
+  50%{
+    filter:drop-shadow(0 0 30px rgba(0,191,255,0.7));
+  }
+
+  100%{
+    filter:drop-shadow(0 0 10px rgba(0,191,255,0.2));
+  }
+
+}
+
+/* SCREEN FADE */
+@keyframes introFade{
+
+  0%{
+    opacity:1;
+    visibility:visible;
+  }
+
+  80%{
+    opacity:1;
+  }
+
+  100%{
+    opacity:0;
+    visibility:hidden;
+  }
+
+}
+
+/* ================= LOGOUT ================= */
+#logout-btn{
+  padding:10px 18px;
+
+  border:none;
+  border-radius:10px;
+
+  background:#00bfff;
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:14px;
+  font-weight:bold;
+
+  transition:0.3s;
+}
+
+#logout-btn:hover{
+  background:#009acd;
+  transform:translateY(-2px);
+}
+
+/* ================= MOBILE ================= */
+@media (max-width:768px){
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    position:fixed;
+
+    top:70px;
+    right:-100%;
+
+    width:260px;
+    height:calc(100vh - 70px);
+
+    background:rgba(0,0,0,0.95);
+
+    backdrop-filter:blur(15px);
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    gap:20px;
+
+    padding-top:30px;
+
+    transition:right 0.4s ease;
+
+    z-index:999;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .hero{
+    justify-content:center;
+    text-align:center;
+    padding:0 20px;
+  }
+
+  .hero-content{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .card{
+    flex:0 0 160px;
+    height:240px;
+  }
+
+  .scroll-btn{
+    display:none;
+  }
+
+  .scroll-row{
+    gap:10px;
+    padding-left:10px;
+  }
+
+}
+/* ================= SECTION HEADER ================= */
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:25px;
+}
+
+/* ================= VIEW ALL ================= */
+.view-all{
+  color:#00bfff;
+  text-decoration:none;
+  font-size:14px;
+  transition:0.3s;
+}
+
+.view-all:hover{
+  opacity:0.7;
+}
+
+/* ================= BADGE ================= */
+.badge{
+  display:inline-block;
+
+  padding:6px 10px;
+
+  margin-bottom:10px;
+
+  background:rgba(0,191,255,0.15);
+
+  border:1px solid rgba(0,191,255,0.3);
+
+  border-radius:30px;
+
+  font-size:11px;
+  font-weight:bold;
+
+  color:#00bfff;
+
+  backdrop-filter:blur(10px);
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+
+  .section-header{
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .view-all{
+    font-size:13px;
+  }
+
+}
+</style>
+</head>
+<meta name="description" content="TSG Studios - Watch movies, read comics, and explore cinematic storytelling.">
+
+<meta name="keywords" content="TSG Studios, movies, comics, entertainment, cinematic storytelling, streaming, studio">
+
+<meta name="author" content="TSG Studios">
+
+<meta name="robots" content="index, follow">
+
+<meta property="og:title" content="TSG Studios">
+<meta property="og:description" content="Movies, comics, and cinematic storytelling.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tsg-studios.github.io/tsgstudios/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TSG Studios">
+<meta name="twitter:description" content="Movies, comics, and cinematic storytelling.">
+<body>
+<body>
+
+<div class="intro-screen" id="intro-screen">
+  <img src="assets/images/logo2.png" alt="TSG Studios Logo" class="intro-logo">
+</div>
+<canvas id="particles"></canvas>
+
+<div class="navbar">
+  <div><b>TSG Studios</b></div>
+
+  <div class="menu-toggle" id="mobile-menu">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <ul class="nav-links" id="nav-list">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="comics.html">Comics</a></li>
+    <li><a href="movies.html">Movies</a></li>
+    <li><a href="signup.html">Sign Up</a></li>
+    <li><a href="https://discord.gg/y4cUFTRE">Community</a></li>
+    <li><a href="login.html" class="active">Login</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+      <!-- LOGOUT BUTTON -->
+      <li>
+        <button id="logout-btn">Logout</button>
+      </li>
+  </ul>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <video autoplay muted loop>
+    <source src="assets/videos/Background video.mp4">
+  </video>
+
+  <div class="hero-content">
+    <h1>Forged in Legend</h1>
+    <p>Premium digital experiences for those who seek the extraordinary. Welcome to TSG Studios.</p>
+  </div>
+</section>
+
+<!-- TRENDING -->
+<section class="reveal trending-section">
+
+  <div class="wrapper">
+
+    <div class="section-header">
+
+      <h2 class="section-title">
+        🔥 Trending Now
+      </h2>
+
+      <a href="comics.html" class="view-all">
+        View All
+      </a>
+
+    </div>
+
+    <div class="trending-container">
+
+      <!-- LEFT BUTTON -->
+      <button
+      class="scroll-btn left"
+      onclick="scrollRow(-1)"
+      aria-label="Scroll Left">
+
+        ‹
+
+      </button>
+
+      <!-- SCROLL ROW -->
+      <div class="scroll-row" id="trendingRow">
+
+        <!-- CARD 1 -->
+        <div
+        class="card"
+        onclick="location.href='read-comic.html?comic=fury'">
+
+          <!-- IMAGE -->
+          <img
+          src="assets/images/Comic book 1.png"
+          alt="Fury of the Gods"
+          class="card-image">
+
+          <!-- VIDEO -->
+          <video
+          class="preview"
+          muted
+          loop
+          playsinline
+          preload="metadata">
+
+            <source
+            src="assets/videos/logo video.mp4"
+            type="video/mp4">
+
+          </video>
+
+          <!-- OVERLAY -->
+          <div class="overlay"></div>
+
+          <!-- INFO -->
+          <div class="card-info">
+
+            <span class="badge">
+              Trending
+            </span>
+
+            <h4>
+              Fury of the Gods
+            </h4>
+
+            <p>
+              Vol 1 • In Production
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="card">
+
+          <img
+          src="assets/images/Coming Soon.png"
+          alt="Coming Soon"
+          class="card-image">
+
+          <video
+          class="preview"
+          muted
+          loop
+          playsinline
+          preload="metadata">
+
+            <source
+            src="assets/videos/logo video.mp4"
+            type="video/mp4">
+
+          </video>
+
+          <div class="overlay"></div>
+
+          <div class="card-info">
+
+            <span class="badge">
+              Upcoming
+            </span>
+
+            <h4>
+              Coming Soon
+            </h4>
+
+            <p>
+              TSG Originals
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="card">
+
+          <img
+          src="assets/images/Coming Soon.png"
+          alt="Coming Soon"
+          class="card-image">
+
+          <video
+          class="preview"
+          muted
+          loop
+          playsinline
+          preload="metadata">
+
+            <source
+            src="assets/videos/logo video.mp4"
+            type="video/mp4">
+
+          </video>
+
+          <div class="overlay"></div>
+
+          <div class="card-info">
+
+            <span class="badge">
+              New
+            </span>
+
+            <h4>
+              Coming Soon
+            </h4>
+
+            <p>
+              TSG Originals
+            </p>
+
+          </div>
+
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="card">
+
+          <img
+          src="assets/images/Coming Soon.png"
+          alt="Coming Soon"
+          class="card-image">
+
+          <video
+          class="preview"
+          muted
+          loop
+          playsinline
+          preload="metadata">
+
+            <source
+            src="assets/videos/logo video.mp4"
+            type="video/mp4">
+
+          </video>
+
+          <div class="overlay"></div>
+
+          <div class="card-info">
+
+            <span class="badge">
+              Soon
+            </span>
+
+            <h4>
+              Coming Soon
+            </h4>
+
+            <p>
+              TSG Originals
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT BUTTON -->
+      <button
+      class="scroll-btn right"
+      onclick="scrollRow(1)"
+      aria-label="Scroll Right">
+
+        ›
+
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- WHAT'S NEW -->
+<section class="reveal">
+  <div class="wrapper">
+
+    <h2>🆕 What’s New</h2>
+
+    <div class="updates">
+
+      <div class="update-card">
+        <h3>🔥 New Comic</h3>
+        <p>Expansion of the Fury of the Gods universe.</p>
+        <span>2026</span>
+      </div>
+
+      <div class="update-card">
+        <h3>🎬 Trailer Soon</h3>
+        <p>Cinematic trailer coming soon to YouTube.</p>
+        <span>Coming</span>
+      </div>
+
+      <div class="update-card">
+        <h3>⚡ UI Upgrade</h3>
+        <p>Cleaner animations and smoother experience.</p>
+        <span>Live</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- YOUTUBE -->
+<section class="reveal">
+  <div class="wrapper">
+
+    <h2>📺 YouTube Channel</h2>
+
+    <div class="yt-grid">
+      <iframe src="https://www.youtube.com/@TSG.Studios_rsa"></iframe>
+      <iframe src="https://www.youtube.com/@TSG.Studios_rsa"></iframe>
+      <iframe src="https://www.youtube.com/@TSG.Studios_rsa"></iframe>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+
+    <p>© 2026 TSG Studios. All rights reserved.</p>
+
+    <div class="footer-icons">
+
+      <a href="https://www.youtube.com/@TSG.Studios_rsa"
+      target="_blank"
+      aria-label="YouTube">
+
+        <i class="fab fa-youtube"></i>
+
+      </a>
+
+      <a href="https://www.instagram.com/tsg.studios_/"
+      target="_blank"
+      aria-label="Instagram">
+
+        <i class="fab fa-instagram"></i>
+
+      </a>
+
+    </div>
+
+  </footer>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+<script>
+
+/* ================= PARTICLES ================= */
+const canvas = document.getElementById("particles");
+
+if(canvas){
+
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particlesArray = [];
+
+  class Particle {
+
+    constructor(){
+
+      this.x = Math.random() * canvas.width;
+      this.y = Math.random() * canvas.height;
+
+      this.size = Math.random() * 2;
+
+      this.speedY = Math.random() * 1;
+
+    }
+
+    update(){
+
+      this.y += this.speedY;
+
+      if(this.y > canvas.height){
+        this.y = 0;
+      }
+
+    }
+
+    draw(){
+
+      ctx.fillStyle = "rgba(0,191,255,0.5)";
+
+      ctx.beginPath();
+
+      ctx.arc(
+        this.x,
+        this.y,
+        this.size,
+        0,
+        Math.PI * 2
+      );
+
+      ctx.fill();
+
+    }
+
+  }
+
+  function init(){
+
+    for(let i = 0; i < 80; i++){
+
+      particlesArray.push(
+        new Particle()
+      );
+
+    }
+
+  }
+
+  function animate(){
+
+    ctx.clearRect(
+      0,
+      0,
+      canvas.width,
+      canvas.height
+    );
+
+    particlesArray.forEach(p => {
+
+      p.update();
+      p.draw();
+
+    });
+
+    requestAnimationFrame(animate);
+
+  }
+
+  init();
+  animate();
+
+}
+
+/* ================= REVEAL ================= */
+const reveals =
+document.querySelectorAll(".reveal");
+
+window.addEventListener("scroll", () => {
+
+  reveals.forEach(el => {
+
+    const top =
+    el.getBoundingClientRect().top;
+
+    if(top < window.innerHeight - 100){
+
+      el.classList.add("active");
+
+    }
+
+  });
+
+});
+
+/* ================= NAV SCROLL ================= */
+window.addEventListener("scroll", () => {
+
+  document.querySelector(".navbar").style.background =
+  window.scrollY > 50
+  ? "#000"
+  : "rgba(0,0,0,0.4)";
+
+});
+
+/* ================= MOBILE MENU ================= */
+const menuToggle =
+document.getElementById('mobile-menu');
+
+const navList =
+document.getElementById('nav-list');
+
+menuToggle.addEventListener('click', () => {
+
+  navList.classList.toggle('active');
+
+  const icon =
+  menuToggle.querySelector('i');
+
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-xmark');
+
+});
+
+/* ================= CLOSE MENU ================= */
+document.querySelectorAll('.nav-links a')
+.forEach(link => {
+
+  link.addEventListener('click', () => {
+
+    navList.classList.remove('active');
+
+    const icon =
+    menuToggle.querySelector('i');
+
+    icon.classList.add('fa-bars');
+    icon.classList.remove('fa-xmark');
+
+  });
+
+});
+
+/* ================= INTRO SCREEN ================= */
+setTimeout(() => {
+
+  const intro =
+  document.getElementById("intro-screen");
+
+  if(intro){
+
+    intro.style.display = "none";
+
+  }
+
+}, 4000);
+
+/* ================= HOVER VIDEO ================= */
+const cards =
+document.querySelectorAll(".card");
+
+cards.forEach(card => {
+
+  const video =
+  card.querySelector(".preview");
+
+  if(video){
+
+    card.addEventListener("mouseenter", () => {
+
+      video.play();
+
+    });
+
+    card.addEventListener("mouseleave", () => {
+
+      video.pause();
+      video.currentTime = 0;
+
+    });
+
+  }
+
+});
+
+/* ================= SCROLL FUNCTION ================= */
+function scrollRow(direction){
+
+  const row =
+  document.getElementById("trendingRow");
+
+  if(row){
+
+    row.scrollBy({
+
+      left: direction * 500,
+      behavior: "smooth"
+
+    });
+
+  }
+
+}
+
+/* ================= FIREBASE CONFIG ================= */
+const firebaseConfig = {
+
+  apiKey: "YOUR_API_KEY",
+
+  authDomain:
+  "YOUR_PROJECT.firebaseapp.com",
+
+  projectId:
+  "YOUR_PROJECT_ID",
+
+  storageBucket:
+  "YOUR_PROJECT.appspot.com",
+
+  messagingSenderId:
+  "XXXX",
+
+  appId:
+  "XXXX"
+
+};
+
+/* ================= INITIALIZE FIREBASE ================= */
+firebase.initializeApp(firebaseConfig);
+
+const auth =
+firebase.auth();
+
+
+
+/* ================= LOGOUT ================= */
+const logoutBtn =
+document.getElementById("logout-btn");
+
+if(logoutBtn){
+
+  logoutBtn.addEventListener("click", () => {
+
+    auth.signOut()
+
+    .then(() => {
+
+      window.location.href =
+      "index.html";
+
+    })
+
+    .catch((error) => {
+
+      alert(error.message);
+
+    });
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>

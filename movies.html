@@ -1,0 +1,909 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>TSG Studios - Movie Library</title>
+
+<meta name="description" content="TSG Studios - Watch movies, read comics, and explore cinematic storytelling.">
+<meta name="keywords" content="TSG Studios, movies, comics, entertainment, cinematic storytelling">
+<meta name="author" content="TSG Studios">
+
+<link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+
+/* ================= RESET ================= */
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#050505;
+  color:white;
+  overflow-x:hidden;
+  transition:opacity .3s ease;
+}
+
+/* ================= BACKGROUND ================= */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:
+  radial-gradient(circle at top right,
+  rgba(0,191,255,0.14),transparent 25%),
+
+  radial-gradient(circle at bottom left,
+  rgba(0,191,255,0.08),transparent 30%);
+
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+  backdrop-filter:blur(40px);
+  z-index:-1;
+}
+
+
+
+/* ================= LOADER ================= */
+.loader{
+  position:fixed;
+  inset:0;
+  background:#050505;
+  z-index:999999;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  transition:.6s ease;
+}
+
+.loader.hidden{
+  opacity:0;
+  visibility:hidden;
+}
+
+.loader h1{
+  color:#00bfff;
+  font-size:4rem;
+  letter-spacing:5px;
+
+  animation:pulse 1.5s infinite;
+}
+
+@keyframes pulse{
+  0%{
+    transform:scale(1);
+    opacity:.6;
+  }
+
+  50%{
+    transform:scale(1.08);
+    opacity:1;
+  }
+
+  100%{
+    transform:scale(1);
+    opacity:.6;
+  }
+}
+
+/* ================= BG BLUR ================= */
+.bg-blur{
+  position:fixed;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:blur(50px) brightness(.35);
+  transform:scale(1.2);
+  z-index:-1;
+  transition:.5s ease;
+}
+
+/* ================= NAVBAR ================= */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+
+  padding:18px 30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(14px);
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  z-index:9999;
+  transition:.4s ease;
+}
+
+.navbar.scrolled{
+  background:rgba(0,0,0,.9);
+}
+
+.logo{
+  font-size:1.2rem;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.nav-links{
+  display:flex;
+  gap:24px;
+  list-style:none;
+  align-items:center;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:#00bfff;
+}
+
+.menu-toggle{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+}
+
+/* ================= BUTTONS ================= */
+#logout-btn,
+.hero-buttons button{
+  padding:12px 22px;
+  border:none;
+  border-radius:14px;
+  cursor:pointer;
+  font-weight:bold;
+  transition:.3s;
+}
+
+.play-btn,
+#logout-btn{
+  background:#00bfff;
+  color:white;
+}
+
+.play-btn:hover,
+#logout-btn:hover{
+  background:#009acd;
+  transform:translateY(-3px);
+}
+
+.info-btn{
+  background:rgba(255,255,255,.08);
+  color:white;
+  border:1px solid rgba(255,255,255,.08);
+}
+
+.info-btn:hover{
+  transform:translateY(-3px);
+}
+
+/* ================= HERO ================= */
+.hero{
+  height:80vh;
+
+  display:flex;
+  align-items:center;
+
+  padding:0 60px;
+
+  background:
+  linear-gradient(
+    to right,
+    rgba(0,0,0,.95),
+    rgba(0,0,0,.4),
+    transparent
+  ),
+
+  url('assets/images/.png')
+  center/cover no-repeat;
+
+  position:relative;
+
+  animation:heroZoom 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroZoom{
+  from{
+    background-size:100%;
+  }
+
+  to{
+    background-size:110%;
+  }
+}
+
+.hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to top,
+    #050505,
+    transparent 40%
+  );
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:650px;
+}
+
+.hero-content h1{
+  font-size:clamp(3rem,7vw,5.5rem);
+  margin-bottom:18px;
+}
+
+.hero-content p{
+  color:#d0d0d0;
+  line-height:1.8;
+  font-size:1.05rem;
+}
+
+.hero-buttons{
+  margin-top:28px;
+  display:flex;
+  gap:15px;
+}
+
+/* ================= SECTION ================= */
+.section{
+  padding:40px;
+}
+
+.section-title{
+  font-size:1.8rem;
+  margin-bottom:22px;
+}
+
+/* ================= MOVIE ROW ================= */
+.movie-row{
+  display:flex;
+  gap:20px;
+  overflow-x:auto;
+  scrollbar-width:none;
+  padding-bottom:10px;
+}
+
+.movie-row::-webkit-scrollbar{
+  display:none;
+}
+
+/* ================= MOVIE CARD ================= */
+.movie-card{
+  min-width:230px;
+  height:350px;
+
+  position:relative;
+  overflow:hidden;
+
+  border-radius:22px;
+
+  cursor:pointer;
+
+  background:#111;
+  border:1px solid rgba(255,255,255,.08);
+
+  transition:
+  transform .4s ease,
+  filter .4s ease;
+
+  isolation:isolate;
+}
+
+.movie-card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+
+  border-radius:22px;
+
+  background:
+  linear-gradient(
+    135deg,
+    rgba(0,191,255,.6),
+    transparent,
+    rgba(0,191,255,.3)
+  );
+
+  opacity:0;
+  transition:.4s;
+}
+
+.movie-card:hover::before{
+  opacity:1;
+}
+
+.movie-card:hover{
+  transform:translateY(-10px) scale(1.05);
+  box-shadow:0 20px 45px rgba(0,191,255,.18);
+}
+
+.movie-card img,
+.movie-card video{
+  position:absolute;
+  inset:0;
+
+  width:100%;
+  height:100%;
+
+  object-fit:cover;
+}
+
+.movie-card video{
+  opacity:0;
+  transition:.4s;
+}
+
+.movie-card:hover video{
+  opacity:1;
+}
+
+.movie-card:hover img{
+  opacity:0;
+}
+
+.movie-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+  linear-gradient(
+    to top,
+    rgba(0,0,0,.96),
+    transparent 55%
+  );
+}
+
+.play-icon{
+  position:absolute;
+  top:15px;
+  right:15px;
+
+  width:45px;
+  height:45px;
+
+  border-radius:50%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  background:rgba(0,0,0,.6);
+
+  z-index:2;
+}
+
+.movie-info{
+  position:absolute;
+  bottom:0;
+  width:100%;
+
+  padding:18px;
+  z-index:2;
+}
+
+.movie-info h3{
+  margin-bottom:5px;
+}
+
+.movie-info p{
+  color:#d0d0d0;
+  font-size:14px;
+}
+
+/* ================= GRID ================= */
+.movie-grid{
+  display:grid;
+
+  grid-template-columns:
+  repeat(auto-fill,minmax(220px,1fr));
+
+  gap:25px;
+}
+
+/* ================= OVERLAY ================= */
+.overlay{
+  display:none;
+
+  position:fixed;
+  inset:0;
+
+  background:rgba(0,0,0,.96);
+
+  z-index:99999;
+
+  justify-content:center;
+  align-items:center;
+
+  padding:20px;
+
+  backdrop-filter:blur(12px);
+}
+
+.player-box{
+  width:100%;
+  max-width:1000px;
+  position:relative;
+}
+
+.player-box video{
+  width:100%;
+  border-radius:20px;
+}
+
+.close-btn{
+  position:absolute;
+  top:-50px;
+  right:0;
+
+  width:45px;
+  height:45px;
+
+  border-radius:50%;
+
+  background:rgba(255,255,255,.08);
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  padding:35px 20px;
+  text-align:center;
+
+  border-top:1px solid rgba(255,255,255,.08);
+
+  background:rgba(0,0,0,.5);
+}
+
+.footer-icons{
+  margin-top:18px;
+
+  display:flex;
+  justify-content:center;
+  gap:18px;
+}
+
+.footer-icons a{
+  width:44px;
+  height:44px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:50%;
+
+  text-decoration:none;
+
+  color:white;
+
+  background:rgba(255,255,255,.08);
+
+  transition:.3s;
+}
+
+.footer-icons a:hover{
+  background:#00bfff;
+  transform:translateY(-4px);
+}
+
+/* ================= MOBILE ================= */
+@media(max-width:768px){
+
+  .menu-toggle{
+    display:block;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:75px;
+    right:-100%;
+
+    width:260px;
+    height:calc(100vh - 75px);
+
+    background:rgba(0,0,0,.96);
+
+    flex-direction:column;
+    align-items:center;
+
+    padding-top:40px;
+    gap:28px;
+
+    transition:.4s ease;
+  }
+
+  .nav-links.active{
+    right:0;
+  }
+
+  .hero{
+    height:70vh;
+    padding:0 25px;
+  }
+
+  .section{
+    padding:25px 20px;
+  }
+
+  .movie-card{
+    min-width:170px;
+    height:260px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+
+  <div class="logo">TSG Studios</div>
+
+   <div class="menu-toggle" id="mobile-menu">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <ul class="nav-links" id="nav-list">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="comics.html">Comics</a></li>
+    <li><a href="movies.html">Movies</a></li>
+    <li><a href="signup.html">Sign Up</a></li>
+    <li><a href="https://discord.gg/y4cUFTRE">Community</a></li>
+    <li><a href="login.html" class="active">Login</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+      <!-- LOGOUT BUTTON -->
+      <li>
+        <button id="logout-btn">Logout</button>
+      </li>
+  </ul>
+</div>
+
+</nav>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+
+  <div class="hero-content">
+
+    <h1>TSG Movie Library</h1>
+
+    <p>
+      Watch cinematic stories, original universes,
+      dark fantasy adventures, and legendary heroes
+      created by TSG Studios.
+    </p>
+
+    <div class="hero-buttons">
+
+      <button class="play-btn">
+        <i class="fas fa-play"></i>
+        Watch Now
+      </button>
+
+      <button class="info-btn">
+        <i class="fas fa-circle-info"></i>
+        More Info
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= TRENDING ================= -->
+<section class="section">
+
+  <h2 class="section-title">🔥 Trending Movies</h2>
+
+  <div class="movie-row">
+
+    <!-- CARD -->
+    <div class="movie-card"
+    data-video="assets/movies/movie1.mp4">
+
+      <div class="play-icon">
+        <i class="fas fa-play"></i>
+      </div>
+
+      <img src="assets/images/Coming Soon Movie Poster.png" alt="Movie Poster">
+
+      <video muted loop preload="metadata">
+        <source src="assets/movies/movie1-preview.mp4" type="video/mp4">
+      </video>
+
+      <div class="movie-info">
+        <h3>Fury of the Gods</h3>
+        <p>Cosmic legends awaken.</p>
+      </div>
+
+    </div>
+
+    <!-- CARD -->
+    <div class="movie-card"
+    data-video="assets/movies/movie2.mp4">
+
+      <div class="play-icon">
+        <i class="fas fa-play"></i>
+      </div>
+
+      <img src="assets/images/Coming Soon Movie Poster.png" alt="Movie Poster">
+
+      <video muted loop preload="metadata">
+        <source src="assets/movies/movie2-preview.mp4" type="video/mp4">
+      </video>
+
+      <div class="movie-info">
+        <h3>Shadow Realm</h3>
+        <p>A cursed kingdom rises.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= MOVIES GRID ================= -->
+<section class="section">
+
+  <h2 class="section-title">🎬 All Movies</h2>
+
+  <div class="movie-grid">
+
+    <div class="movie-card"
+    data-video="assets/movies/movie1.mp4">
+
+      <div class="play-icon">
+        <i class="fas fa-play"></i>
+      </div>
+
+      <img src="assets/images/Coming Soon Movie Poster.png" alt="Movie Poster">
+
+      <video muted loop preload="metadata">
+        <source src="assets/movies/movie1-preview.mp4" type="video/mp4">
+      </video>
+
+      <div class="movie-info">
+        <h3>Movie Title 1</h3>
+        <p>Epic cinematic adventure.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ================= PLAYER ================= -->
+<div class="overlay" id="overlay">
+
+  <div class="player-box">
+
+    <div class="close-btn" id="close-btn">
+      <i class="fas fa-xmark"></i>
+    </div>
+
+    <video id="player" controls autoplay></video>
+
+  </div>
+
+</div>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+
+  <p>© 2026 TSG Studios. All rights reserved.</p>
+
+  <div class="footer-icons">
+
+    <a href="https://www.youtube.com/@TSG.Studios_rsa"
+    target="_blank">
+      <i class="fab fa-youtube"></i>
+    </a>
+
+    <a href="https://www.instagram.com/tsg.studios_/"
+    target="_blank">
+      <i class="fab fa-instagram"></i>
+    </a>
+
+  </div>
+
+</footer>
+
+<script>
+
+/* ================= LOADER ================= */
+window.addEventListener("load", () => {
+  document.getElementById("loader")
+  .classList.add("hidden");
+});
+
+/* ================= NAVBAR SCROLL ================= */
+const navbar = document.querySelector(".navbar");
+
+window.addEventListener("scroll", () => {
+
+  if(window.scrollY > 50){
+    navbar.classList.add("scrolled");
+  } else {
+    navbar.classList.remove("scrolled");
+  }
+
+});
+
+/* ================= MOBILE MENU ================= */
+const menuToggle = document.getElementById("mobile-menu");
+const navList = document.getElementById("nav-list");
+
+menuToggle.addEventListener("click", () => {
+
+  navList.classList.toggle("active");
+
+  const icon = menuToggle.querySelector("i");
+
+  icon.classList.toggle("fa-bars");
+  icon.classList.toggle("fa-xmark");
+
+});
+
+/* ================= BG BLUR ================= */
+const bgBlur = document.createElement("div");
+bgBlur.className = "bg-blur";
+
+document.body.appendChild(bgBlur);
+
+/* ================= VIDEO PREVIEW ================= */
+const cards = document.querySelectorAll(".movie-card");
+
+cards.forEach(card => {
+
+  const video = card.querySelector("video");
+  const image = card.querySelector("img");
+
+  card.addEventListener("mouseenter", () => {
+
+    if(video){
+
+      video.currentTime = 0;
+
+      video.play().catch(() => {});
+
+      bgBlur.style.backgroundImage =
+      `url(${image.src})`;
+
+    }
+
+  });
+
+  card.addEventListener("mouseleave", () => {
+
+    if(video){
+
+      video.pause();
+      video.currentTime = 0;
+
+    }
+
+  });
+
+  /* ================= OPEN MOVIE ================= */
+  card.addEventListener("click", () => {
+
+    const movieSrc = card.dataset.video;
+
+    const overlay =
+    document.getElementById("overlay");
+
+    const player =
+    document.getElementById("player");
+
+    player.src = movieSrc;
+
+    overlay.style.display = "flex";
+
+  });
+
+});
+
+/* ================= CLOSE PLAYER ================= */
+const closeBtn =
+document.getElementById("close-btn");
+
+closeBtn.addEventListener("click", closeMovie);
+
+function closeMovie(){
+
+  const overlay =
+  document.getElementById("overlay");
+
+  const player =
+  document.getElementById("player");
+
+  player.pause();
+
+  player.src = "";
+
+  overlay.style.display = "none";
+
+}
+
+/* ================= CLOSE OVERLAY ================= */
+document.getElementById("overlay")
+.addEventListener("click", (e) => {
+
+  if(e.target.id === "overlay"){
+    closeMovie();
+  }
+
+});
+
+/* ================= PAGE TRANSITION ================= */
+document.querySelectorAll("a").forEach(link => {
+
+  const href = link.getAttribute("href");
+
+  if(!href || href.startsWith("#")) return;
+
+  link.addEventListener("click", (e) => {
+
+    e.preventDefault();
+
+    document.body.style.opacity = "0";
+
+    setTimeout(() => {
+      window.location.href = href;
+    }, 250);
+
+  });
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sign Up - TSG Studios</title>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+
+  /* ================= RESET ================= */
+  *{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+  }
+
+  body{
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+
+    background:
+    radial-gradient(circle at top right,
+    rgba(0,191,255,0.15),transparent 30%),
+
+    radial-gradient(circle at bottom left,
+    rgba(0,191,255,0.08),transparent 30%);
+
+    z-index:-2;
+  }
+
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    backdrop-filter:blur(35px);
+    z-index:-1;
+  }
+
+  /* ================= NAVBAR ================= */
+  /* ================= NAVBAR ================= */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+
+  padding:18px 30px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  background:rgba(0,0,0,.45);
+  backdrop-filter:blur(14px);
+
+  border-bottom:1px solid rgba(255,255,255,.08);
+
+  z-index:9999;
+  transition:.4s ease;
+}
+
+.navbar.scrolled{
+  background:rgba(0,0,0,.9);
+}
+
+.logo{
+  font-size:1.2rem;
+  font-weight:bold;
+  letter-spacing:1px;
+}
+
+.nav-links{
+  display:flex;
+  gap:24px;
+  list-style:none;
+  align-items:center;
+}
+
+.nav-links a{
+  text-decoration:none;
+  color:white;
+  transition:.3s;
+}
+
+.nav-links a:hover{
+  color:#00bfff;
+}
+
+.menu-toggle{
+  display:none;
+  font-size:24px;
+  cursor:pointer;
+}
+  /* ================= SIGNUP SECTION ================= */
+  .signup-section{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    padding:120px 20px 60px;
+  }
+
+  .signup-box{
+    width:100%;
+    max-width:450px;
+
+    background:rgba(255,255,255,0.05);
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,0.08);
+
+    border-radius:24px;
+
+    padding:40px 35px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,0.5),
+    0 0 30px rgba(0,191,255,0.08);
+
+    animation:fadeUp 0.8s ease;
+  }
+
+  .signup-box h2{
+    font-size:2rem;
+    margin-bottom:10px;
+    text-align:center;
+  }
+
+  .signup-subtext{
+    text-align:center;
+    color:#aaa;
+    margin-bottom:30px;
+    line-height:1.6;
+  }
+
+  .signup-form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+  }
+
+  .input-group{
+    position:relative;
+  }
+
+  .input-group i{
+    position:absolute;
+    top:50%;
+    left:15px;
+    transform:translateY(-50%);
+    color:#888;
+  }
+
+  .signup-form input{
+    width:100%;
+    padding:14px 14px 14px 45px;
+
+    border:none;
+    outline:none;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,0.06);
+
+    color:white;
+    font-size:15px;
+
+    border:1px solid rgba(255,255,255,0.06);
+
+    transition:0.3s;
+  }
+
+  .signup-form input:focus{
+    border-color:rgba(0,191,255,0.6);
+    box-shadow:0 0 20px rgba(0,191,255,0.12);
+  }
+
+  .signup-form input::placeholder{
+    color:#888;
+  }
+
+  .signup-form button{
+    margin-top:10px;
+
+    padding:14px;
+
+    border:none;
+    border-radius:14px;
+
+    background:#00bfff;
+    color:white;
+
+    font-size:16px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    transition:0.3s;
+  }
+
+  .signup-form button:hover{
+    transform:translateY(-3px);
+    background:#00a6dd;
+
+    box-shadow:0 12px 30px rgba(0,191,255,0.25);
+  }
+
+  .login-link{
+    text-align:center;
+    margin-top:20px;
+    color:#aaa;
+  }
+
+  .login-link a{
+    color:#00bfff;
+    text-decoration:none;
+  }
+
+  /* ================= FOOTER ================= */
+  footer{
+    padding:30px 20px;
+    text-align:center;
+    border-top:1px solid rgba(255,255,255,0.08);
+    background:rgba(0,0,0,0.5);
+  }
+
+  .footer-icons{
+    margin-top:15px;
+    display:flex;
+    justify-content:center;
+    gap:18px;
+  }
+
+  .footer-icons a{
+    width:42px;
+    height:42px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,0.06);
+
+    color:white;
+
+    text-decoration:none;
+
+    transition:0.3s;
+  }
+
+  .footer-icons a:hover{
+    background:#00bfff;
+    transform:translateY(-4px);
+  }
+
+  /* ================= ANIMATION ================= */
+  @keyframes fadeUp{
+    from{
+      opacity:0;
+      transform:translateY(30px);
+    }
+
+    to{
+      opacity:1;
+      transform:translateY(0);
+    }
+  }
+
+  /* ================= MOBILE ================= */
+  @media(max-width:768px){
+
+    .menu-toggle{
+      display:block;
+    }
+
+    .nav-links{
+      position:fixed;
+      top:70px;
+      right:-100%;
+
+      width:260px;
+      height:calc(100vh - 70px);
+
+      background:rgba(0,0,0,0.96);
+      backdrop-filter:blur(16px);
+
+      flex-direction:column;
+      align-items:center;
+
+      padding-top:35px;
+      gap:25px;
+
+      transition:0.4s ease;
+    }
+
+    .nav-links.active{
+      right:0;
+    }
+
+    .signup-box{
+      padding:35px 25px;
+    }
+
+  }
+#logout-btn{
+  padding:10px 18px;
+
+  border:none;
+  border-radius:10px;
+
+  background:#00bfff;
+  color:white;
+
+  cursor:pointer;
+
+  font-size:14px;
+  font-weight:bold;
+
+  transition:0.3s;
+}
+
+#logout-btn:hover{
+  background:#009acd;
+  transform:translateY(-2px);
+}
+  </style>
+</head>
+<meta name="description" content="TSG Studios - Watch movies, read comics, and explore cinematic storytelling.">
+
+<meta name="keywords" content="TSG Studios, movies, comics, entertainment, cinematic storytelling, streaming, studio">
+
+<meta name="author" content="TSG Studios">
+
+<meta name="robots" content="index, follow">
+
+<meta property="og:title" content="TSG Studios">
+<meta property="og:description" content="Movies, comics, and cinematic storytelling.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tsg-studios.github.io/tsgstudios/">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TSG Studios">
+<meta name="twitter:description" content="Movies, comics, and cinematic storytelling.">
+<body>
+
+  <!-- ================= NAVBAR ================= -->
+  <div class="navbar">
+  <div><b>TSG Studios</b></div>
+
+  <div class="menu-toggle" id="mobile-menu">
+    <i class="fas fa-bars"></i>
+  </div>
+
+  <ul class="nav-links" id="nav-list">
+    <li><a href="home.html">Home</a></li>
+    <li><a href="comics.html">Comics</a></li>
+    <li><a href="movies.html">Movies</a></li>
+    <li><a href="signup.html">Sign Up</a></li>
+    <li><a href="https://discord.gg/y4cUFTRE">Community</a></li>
+    <li><a href="login.html" class="active">Login</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+
+      <!-- LOGOUT BUTTON -->
+      <li>
+        <button id="logout-btn">Logout</button>
+      </li>
+  </ul>
+</div>
+
+
+        
+
+
+
+  </header>
+
+  <!-- ================= SIGNUP ================= -->
+  <section class="signup-section">
+
+    <div class="signup-box">
+
+      <h2>Create Your Account</h2>
+
+      <p class="signup-subtext">
+        Join the TSG Studios universe and unlock
+        comics, movies, updates, and the community.
+      </p>
+
+      <form class="signup-form" action="#" method="post">
+
+        <div class="input-group">
+          <i class="fas fa-user"></i>
+          <input type="text"
+          name="fullname"
+          placeholder="Full Name"
+          required />
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-envelope"></i>
+          <input type="email"
+          name="email"
+          placeholder="Email Address"
+          required />
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-lock"></i>
+          <input type="password"
+          name="password"
+          placeholder="Password"
+          required />
+        </div>
+
+        <div class="input-group">
+          <i class="fas fa-shield-halved"></i>
+          <input type="password"
+          name="confirm"
+          placeholder="Confirm Password"
+          required />
+        </div>
+
+        <button type="submit">
+          Create Account
+        </button>
+
+      </form>
+
+      <div class="login-link">
+        Already have an account?
+        <a href="#">Log In</a>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+
+    <p>© 2026 TSG Studios. All rights reserved.</p>
+
+    <div class="footer-icons">
+
+      <a href="https://www.youtube.com/@TSG.Studios_rsa"
+      target="_blank"
+      aria-label="YouTube">
+
+        <i class="fab fa-youtube"></i>
+
+      </a>
+
+      <a href="https://www.instagram.com/tsg.studios_/"
+      target="_blank"
+      aria-label="Instagram">
+
+        <i class="fab fa-instagram"></i>
+
+      </a>
+
+    </div>
+
+  </footer>
+
+<script>
+
+/* ================= FIREBASE CONFIG ================= */
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT.appspot.com",
+  messagingSenderId: "XXXX",
+  appId: "XXXX"
+};
+
+/* ================= INITIALIZE FIREBASE ================= */
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+
+/* ================= SIGN UP ================= */
+const signupForm = document.querySelector(".signup-form");
+
+signupForm.addEventListener("submit", (e) => {
+
+  e.preventDefault();
+
+  const email =
+  signupForm.email.value;
+
+  const password =
+  signupForm.password.value;
+
+  const confirm =
+  signupForm.confirm.value;
+
+  if(password !== confirm){
+    alert("Passwords do not match.");
+    return;
+  }
+
+  auth.createUserWithEmailAndPassword(email, password)
+
+  .then((userCredential) => {
+
+    alert("Account created successfully!");
+
+    // Redirect to homepage
+    window.location.href = "home.html";
+
+  })
+
+  .catch((error) => {
+
+    alert(error.message);
+
+  });
+
+});
+
+/* ================= NAV SCROLL ================= */
+window.addEventListener("scroll", () => {
+  document.querySelector(".navbar").style.background =
+    window.scrollY > 50 ? "#000" : "rgba(0,0,0,0.4)";
+});
+
+/* ================= MOBILE MENU ================= */
+const menuToggle = document.getElementById('mobile-menu');
+const navList = document.getElementById('nav-list');
+
+menuToggle.addEventListener('click', () => {
+
+  navList.classList.toggle('active');
+
+  const icon = menuToggle.querySelector('i');
+
+  icon.classList.toggle('fa-bars');
+  icon.classList.toggle('fa-xmark');
+});
+
+/* CLOSE MENU ON LINK CLICK */
+document.querySelectorAll('.nav-links a').forEach(link => {
+
+  link.addEventListener('click', () => {
+
+    navList.classList.remove('active');
+
+    const icon = menuToggle.querySelector('i');
+
+    icon.classList.add('fa-bars');
+    icon.classList.remove('fa-xmark');
+  });
+});
+
+/* ================= SCROLL BUTTONS ================= */
+function scrollRow(direction) {
+
+  const row = document.getElementById("trendingRow");
+
+  const scrollAmount = 300;
+
+  row.scrollBy({
+    left: direction * scrollAmount,
+    behavior: "smooth"
+  });
+}
+document.getElementById("logout-btn")
+.addEventListener("click", () => {
+
+  auth.signOut()
+  .then(() => {
+
+    window.location.href = "index.html";
+
+  });
+
+});
+</script>
+
+</body>
+</html>
